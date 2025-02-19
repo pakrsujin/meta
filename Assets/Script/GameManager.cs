@@ -4,12 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     private static GameManager gameManager;
     
     public static GameManager instance{ get { return gameManager; } }
-    
+
+    public GameManager endPanel;
     private int currentScore = 0;
     UIManager uiManager;
     
@@ -17,6 +20,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        
         gameManager = this;
         uiManager = FindObjectOfType<UIManager>();
     }
@@ -38,6 +46,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game Over");
         uiManager.SetRestart();
+        Time.timeScale = 0.0f;
+        endPanel.SetActive(true);
     }
 
     public void RestartGame()
@@ -51,6 +61,4 @@ public class GameManager : MonoBehaviour
         Debug.Log("Score:" + currentScore);
         uiManager.UpdateScore(currentScore);
     }
-
-
 }
