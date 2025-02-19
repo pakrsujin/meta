@@ -23,7 +23,15 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        StartCoroutine(StartGameAfterDelay(2f));
         uiManager.UpdateScore(0);
+        
+    }
+    private IEnumerator StartGameAfterDelay(float delay)
+    {
+        Time.timeScale = 0f; // 게임 일시정지
+        yield return new WaitForSecondsRealtime(delay); // 실제 시간 기준 2초 대기
+        Time.timeScale = 1f; // 게임 다시 실행
     }
 
     public void GameOver()

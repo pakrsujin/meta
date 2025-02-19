@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+
+    private bool isNearDesk = false;
 
     void Start()
     {
@@ -25,6 +28,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (isNearDesk && Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene("SampleScene"); // 씬 이름을 실제 씬 이름으로 변경
+        }
         // 플레이어 이동 입력 받기
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
@@ -67,5 +74,20 @@ public class Player : MonoBehaviour
     {
         // Rigidbody2D를 이용한 이동
         rb.velocity = moveInput * speed;
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Desk")) // 컴퓨터 오브젝트에 "Desk" 태그 추가해야 함
+        {
+            isNearDesk = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Desk"))
+        {
+            isNearDesk = false;
+        }
     }
 }
