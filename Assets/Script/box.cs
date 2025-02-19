@@ -5,8 +5,8 @@ public class box : MonoBehaviour
     Animator animator = null;
     Rigidbody2D _rigidbody = null;
 
-    public float flapForce = 6f;
-    public float forwardSpeed = 1f;
+    public float flapForce = 0.2f;
+    public float forwardSpeed = 0.6f;
     public bool isDead = false;
     float deathCooldown = 0f;
     
