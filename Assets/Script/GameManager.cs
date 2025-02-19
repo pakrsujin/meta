@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     
     public static GameManager instance{ get { return gameManager; } }
 
-    public GameManager endPanel;
+    public GameObject endPanel;
     private int currentScore = 0;
     UIManager uiManager;
     
