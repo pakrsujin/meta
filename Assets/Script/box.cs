@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class box : MonoBehaviour
 {
+    
     Animator animator = null;
     Rigidbody2D _rigidbody = null;
 
@@ -14,8 +15,11 @@ public class box : MonoBehaviour
 
     public bool godMode = false;
     
+    private GameManager gameManager = null;
+    
     void Start()
     {
+        gameManager = GameManager.instance;
         animator = transform.GetComponentInChildren<Animator>();
         _rigidbody = transform.GetComponent<Rigidbody2D>();
 
@@ -39,6 +43,7 @@ public class box : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     // 게임 재시작
+                    gameManager.RestartGame();
                 }
             }
             else
@@ -87,5 +92,6 @@ public class box : MonoBehaviour
         animator.SetInteger("IsDie", 1);
         isDead = true;
         deathCooldown = 1f;
+        gameManager.GameOver();
     }
 }
