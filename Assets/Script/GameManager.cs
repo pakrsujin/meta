@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,25 @@ public class GameManager : MonoBehaviour
     public static GameManager instance{ get { return gameManager; } }
     
     private int currentScore = 0;
+    UIManager uiManager;
+    
+    public UIManager UIManager { get { return uiManager; } }
 
     private void Awake()
     {
         gameManager = this;
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
+    public void Start()
+    {
+        uiManager.UpdateScore(0);
     }
 
     public void GameOver()
     {
         Debug.Log("Game Over");
+        uiManager.SetRestart();
     }
 
     public void RestartGame()
@@ -29,8 +40,8 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         currentScore += score;
-        
         Debug.Log("Score:" + currentScore);
+        uiManager.UpdateScore(currentScore);
     }
 
 
